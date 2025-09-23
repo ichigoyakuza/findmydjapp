@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    
+    <!-- Favicon et icônes -->
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    
+    <!-- Viewport et responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Métadonnées SEO -->
+    <title>FindMyDJ - Trouvez votre DJ parfait | Réservation & Booking</title>
+    <meta name="description" content="Découvrez, réservez et connectez-vous avec les meilleurs DJs. Plateforme de réservation de DJs avec géolocalisation et outils professionnels pour événements." />
+    <meta name="keywords" content="DJ, musique, réservation, événements, booking, géolocalisation, soirée, concert, FindMyDJ" />
+    <meta name="author" content="FindMyDJ" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://findmydj.netlify.app/" />
+    <meta property="og:title" content="FindMyDJ - Trouvez votre DJ parfait" />
+    <meta property="og:description" content="Découvrez, réservez et connectez-vous avec les meilleurs DJs. Plateforme de réservation avec géolocalisation." />
+    <meta property="og:image" content="https://findmydj.netlify.app/logo.svg" />
+    <meta property="og:site_name" content="FindMyDJ" />
+    <meta property="og:locale" content="fr_FR" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://findmydj.netlify.app/" />
+    <meta property="twitter:title" content="FindMyDJ - Trouvez votre DJ parfait" />
+    <meta property="twitter:description" content="Découvrez, réservez et connectez-vous avec les meilleurs DJs. Plateforme de réservation avec géolocalisation." />
+    <meta property="twitter:image" content="https://findmydj.netlify.app/logo.svg" />
+    
+    <!-- PWA iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="FindMyDJ" />
+    
+    <!-- PWA Android -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="msapplication-TileColor" content="#3b82f6" />
+    
+    <!-- Preconnect pour optimiser les performances -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

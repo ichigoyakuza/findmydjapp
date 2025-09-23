@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://djhub.trueapp.xyz/sitemap.xml
+
+# Optimisations pour les moteurs de recherche
+Crawl-delay: 1
+
+# Bloquer les fichiers sensibles
+Disallow: /api/
+Disallow: /.env
+Disallow: /admin/
+Disallow: /private/

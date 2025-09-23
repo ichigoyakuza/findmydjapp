@@ -1,0 +1,8 @@
+# SPA redirects for React Router
+/*    /index.html   200
+
+# API redirects (if needed in the future)
+/api/*  https://api.findmydj.com/:splat  200
+
+# Force HTTPS
+http://findmydj.netlify.app/*  https://findmydj.netlify.app/:splat  301!

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <!-- Fond transparent -->
+  <rect width="500" height="500" fill="transparent"/>
+  
+  <!-- Casque audio - Arceau -->
+  <path d="M 150 180 Q 150 120 250 120 Q 350 120 350 180" 
+        fill="none" stroke="url(#headphoneGradient)" stroke-width="20" stroke-linecap="round"/>
+  
+  <!-- Casque audio - Oreillette gauche -->
+  <ellipse cx="150" cy="200" rx="25" ry="35" fill="url(#headphoneGradient)"/>
+  <ellipse cx="150" cy="200" rx="18" ry="28" fill="url(#innerGradient)"/>
+  
+  <!-- Casque audio - Oreillette droite -->
+  <ellipse cx="350" cy="200" rx="25" ry="35" fill="url(#headphoneGradient)"/>
+  <ellipse cx="350" cy="200" rx="18" ry="28" fill="url(#innerGradient)"/>
+  
+  <!-- Épingle de localisation - Corps principal -->
+  <path d="M 250 280 Q 220 280 220 310 Q 220 340 250 370 Q 280 340 280 310 Q 280 280 250 280 Z" 
+        fill="url(#pinGradient)"/>
+  
+  <!-- Épingle de localisation - Cercle intérieur avec bouton play -->
+  <circle cx="250" cy="310" r="20" fill="url(#playBgGradient)"/>
+  
+  <!-- Bouton play (triangle) -->
+  <path d="M 242 302 L 242 318 L 258 310 Z" fill="white"/>
+  
+  <!-- Texte DJHUB -->
+  <text x="250" y="450" font-family="Arial, sans-serif" font-size="48" font-weight="900" text-anchor="middle" fill="url(#textGradient)">DJHUB</text>
+  
+  <!-- Définitions des dégradés -->
+  <defs>
+    <!-- Dégradé principal casque -->
+    <linearGradient id="headphoneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="50%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    
+    <!-- Dégradé intérieur casque -->
+    <linearGradient id="innerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E1B4B"/>
+      <stop offset="100%" stop-color="#312E81"/>
+    </linearGradient>
+    
+    <!-- Dégradé épingle -->
+    <linearGradient id="pinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="50%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    
+    <!-- Dégradé fond bouton play -->
+    <radialGradient id="playBgGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1E1B4B"/>
+      <stop offset="100%" stop-color="#312E81"/>
+    </radialGradient>
+    
+    <!-- Dégradé texte -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="50%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+</svg>

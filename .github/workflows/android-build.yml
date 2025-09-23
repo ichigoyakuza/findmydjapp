@@ -1,0 +1,66 @@
+name: 🚀 Build Android APK - FindMyDJ
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:  # Permet de lancer manuellement
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 📱 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: ☕ Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: 🔧 Setup Android SDK
+      uses: android-actions/setup-android@v3
+      
+    - name: 📦 Install dependencies
+      run: npm ci
+      
+    - name: 🏗️ Build web application
+      run: npm run build
+      
+    - name: 🔄 Sync Capacitor
+      run: |
+        npx cap sync android
+        
+    - name: 🔐 Generate debug keystore
+      run: |
+        keytool -genkey -v -keystore android/app/debug.keystore \
+          -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 \
+          -dname "CN=FindMyDJ, OU=Development, O=FindMyDJ, L=Paris, S=IDF, C=FR" \
+          -storepass android -keypass android
+          
+    - name: 📱 Build Android APK
+      run: |
+        cd android
+        chmod +x ./gradlew
+        ./gradlew assembleDebug
+        
+    - name: 📤 Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: findmydj-debug-apk
+        path: android/app/build/outputs/apk/debug/app-debug.apk
+        
+    - name: 📊 APK Info
+      run: |
+        echo "✅ APK généré avec succès !"
+        echo "📁 Fichier: android/app/build/outputs/apk/debug/app-debug.apk"
+        ls -la android/app/build/outputs/apk/debug/

@@ -1,0 +1,80 @@
+<svg width="1024" height="500" viewBox="0 0 1024 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f7fafc;stop-opacity:0.9" />
+    </linearGradient>
+    <radialGradient id="glowEffect" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1024" height="500" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative Elements -->
+  <circle cx="100" cy="100" r="60" fill="url(#glowEffect)" opacity="0.3"/>
+  <circle cx="924" cy="400" r="80" fill="url(#glowEffect)" opacity="0.2"/>
+  <circle cx="800" cy="80" r="40" fill="url(#glowEffect)" opacity="0.4"/>
+  
+  <!-- DJ Turntables -->
+  <g transform="translate(150, 200)">
+    <!-- Left Turntable -->
+    <circle cx="0" cy="0" r="80" fill="#2d3748" opacity="0.8"/>
+    <circle cx="0" cy="0" r="70" fill="#1a202c"/>
+    <circle cx="0" cy="0" r="60" fill="#000000"/>
+    <circle cx="0" cy="0" r="20" fill="#f093fb"/>
+    <text x="0" y="5" text-anchor="middle" fill="#ffffff" font-family="Arial" font-size="12" font-weight="bold">DJ</text>
+  </g>
+  
+  <g transform="translate(350, 200)">
+    <!-- Right Turntable -->
+    <circle cx="0" cy="0" r="80" fill="#2d3748" opacity="0.8"/>
+    <circle cx="0" cy="0" r="70" fill="#1a202c"/>
+    <circle cx="0" cy="0" r="60" fill="#000000"/>
+    <circle cx="0" cy="0" r="20" fill="#f5576c"/>
+    <text x="0" y="5" text-anchor="middle" fill="#ffffff" font-family="Arial" font-size="12" font-weight="bold">MIX</text>
+  </g>
+  
+  <!-- Mixer -->
+  <rect x="200" y="320" width="100" height="60" rx="10" fill="#4a5568" opacity="0.9"/>
+  <circle cx="220" cy="340" r="8" fill="#48bb78"/>
+  <circle cx="250" cy="340" r="8" fill="#ed8936"/>
+  <circle cx="280" cy="340" r="8" fill="#f56565"/>
+  <rect x="210" y="355" width="80" height="4" rx="2" fill="#e2e8f0"/>
+  
+  <!-- Main Title -->
+  <text x="512" y="150" text-anchor="middle" fill="url(#textGradient)" font-family="Arial, sans-serif" font-size="72" font-weight="bold">FindMyDJ</text>
+  
+  <!-- Subtitle -->
+  <text x="512" y="200" text-anchor="middle" fill="#f7fafc" font-family="Arial, sans-serif" font-size="32" font-weight="300">Trouvez le DJ parfait pour votre événement</text>
+  
+  <!-- Features -->
+  <g transform="translate(512, 280)">
+    <text x="0" y="0" text-anchor="middle" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="20">🎵 Recherche par genre musical</text>
+    <text x="0" y="30" text-anchor="middle" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="20">📍 Géolocalisation intelligente</text>
+    <text x="0" y="60" text-anchor="middle" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="20">⭐ Avis et recommandations</text>
+    <text x="0" y="90" text-anchor="middle" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="20">💰 Réservation en ligne sécurisée</text>
+  </g>
+  
+  <!-- Sound Waves Animation -->
+  <g opacity="0.6">
+    <path d="M 50 250 Q 80 230 110 250 Q 80 270 50 250" fill="none" stroke="#f093fb" stroke-width="3"/>
+    <path d="M 30 250 Q 70 220 110 250 Q 70 280 30 250" fill="none" stroke="#f093fb" stroke-width="2" opacity="0.7"/>
+    <path d="M 10 250 Q 60 210 110 250 Q 60 290 10 250" fill="none" stroke="#f093fb" stroke-width="1" opacity="0.5"/>
+    
+    <path d="M 974 250 Q 944 230 914 250 Q 944 270 974 250" fill="none" stroke="#f5576c" stroke-width="3"/>
+    <path d="M 994 250 Q 954 220 914 250 Q 954 280 994 250" fill="none" stroke="#f5576c" stroke-width="2" opacity="0.7"/>
+    <path d="M 1014 250 Q 964 210 914 250 Q 964 290 1014 250" fill="none" stroke="#f5576c" stroke-width="1" opacity="0.5"/>
+  </g>
+  
+  <!-- Call to Action -->
+  <rect x="412" y="420" width="200" height="50" rx="25" fill="#ffffff" opacity="0.9"/>
+  <text x="512" y="450" text-anchor="middle" fill="#667eea" font-family="Arial, sans-serif" font-size="18" font-weight="bold">Télécharger maintenant</text>
+</svg>
