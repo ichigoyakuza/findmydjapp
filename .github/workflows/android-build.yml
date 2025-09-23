@@ -1,15 +1,17 @@
 name: 🚀 Build Android APK - FindMyDJ
 
 on:
+  workflow_dispatch:  # Permet de lancer manuellement seulement
   push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-  workflow_dispatch:  # Permet de lancer manuellement
+    branches: [ main ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
 
 jobs:
   build-android:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     
     steps:
     - name: 📥 Checkout code
@@ -29,30 +31,27 @@ jobs:
         
     - name: 🔧 Setup Android SDK
       uses: android-actions/setup-android@v3
-      
+      with:
+        api-level: 33
+        build-tools: 33.0.0
+        
     - name: 📦 Install dependencies
       run: |
-        npm cache clean --force
-        npm install
+        npm ci
       
     - name: 🏗️ Build web application
       run: |
         npm run build
-        ls -la dist/
-      
-    - name: 🔧 Install Capacitor CLI
-      run: npm install -g @capacitor/cli
-      
+        
     - name: 🔄 Sync Capacitor
       run: |
         npx cap sync android
-        ls -la android/
         
     - name: 📱 Build Android APK
       run: |
         cd android
         chmod +x ./gradlew
-        ./gradlew assembleDebug --stacktrace
+        ./gradlew assembleDebug --no-daemon --stacktrace
         
     - name: 📤 Upload APK
       uses: actions/upload-artifact@v4
