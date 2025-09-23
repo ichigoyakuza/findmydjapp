@@ -31,17 +31,25 @@ jobs:
       uses: android-actions/setup-android@v3
       
     - name: 📦 Install dependencies
-      run: npm ci
+      run: |
+        npm cache clean --force
+        npm install
       
     - name: 🏗️ Build web application
-      run: npm run build
+      run: |
+        npm run build
+        ls -la dist/
+      
+    - name: 🔧 Install Capacitor CLI
+      run: npm install -g @capacitor/cli
       
     - name: 🔄 Sync Capacitor
       run: |
-        npx cap sync android
+        npx cap sync android --no-build
         
     - name: 🔐 Generate debug keystore
       run: |
+        mkdir -p android/app
         keytool -genkey -v -keystore android/app/debug.keystore \
           -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 \
           -dname "CN=FindMyDJ, OU=Development, O=FindMyDJ, L=Paris, S=IDF, C=FR" \
@@ -51,7 +59,8 @@ jobs:
       run: |
         cd android
         chmod +x ./gradlew
-        ./gradlew assembleDebug
+        ./gradlew clean
+        ./gradlew assembleDebug --stacktrace
         
     - name: 📤 Upload APK
       uses: actions/upload-artifact@v4
