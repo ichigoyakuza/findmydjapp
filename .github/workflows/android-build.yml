@@ -46,20 +46,12 @@ jobs:
     - name: 🔄 Sync Capacitor
       run: |
         npx cap sync android
+        ls -la android/
         
-    - name: 🔐 Generate debug keystore
-      run: |
-        mkdir -p android/app
-        keytool -genkey -v -keystore android/app/debug.keystore \
-          -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 \
-          -dname "CN=FindMyDJ, OU=Development, O=FindMyDJ, L=Paris, S=IDF, C=FR" \
-          -storepass android -keypass android
-          
     - name: 📱 Build Android APK
       run: |
         cd android
         chmod +x ./gradlew
-        ./gradlew clean
         ./gradlew assembleDebug --stacktrace
         
     - name: 📤 Upload APK
