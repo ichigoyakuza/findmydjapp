@@ -33,13 +33,13 @@ const Navigation = () => {
     { path: '/', label: t('nav.discovery'), icon: Search },
     { path: '/map', label: t('map.title'), icon: MapPin },
     { path: '/community', label: t('community.title'), icon: Users },
-    { path: '/forum', label: 'Forum', icon: MessageSquare },
-    { path: '/messages', label: 'Messages', icon: MessageCircle },
+    { path: '/forum', label: t('nav.forum'), icon: MessageSquare },
+    { path: '/messages', label: t('nav.messages'), icon: MessageCircle },
     { path: '/events', label: t('nav.events'), icon: Calendar },
     { path: '/artists', label: t('nav.artists'), icon: Music },
-    { path: '/music-store', label: 'Boutique Musique', icon: Music },
-    { path: '/music-hub', label: 'Music Hub', icon: Headphones },
-    { path: '/subscription', label: 'Abonnement', icon: CreditCard },
+    { path: '/music-store', label: t('nav.musicStore'), icon: Music },
+    { path: '/music-hub', label: t('nav.musicHub'), icon: Headphones },
+    { path: '/subscription', label: t('nav.subscription'), icon: CreditCard },
     { path: '/dashboard', label: t('nav.dashboard'), icon: Settings },
   ];
 
@@ -174,7 +174,7 @@ const Navigation = () => {
                       className="flex items-center space-x-3 px-4 py-3 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-300 w-full text-left"
                     >
                       <LogIn className="w-5 h-5 rotate-180" />
-                      <span className="font-medium">Déconnexion</span>
+                      <span className="font-medium">{t('nav.logout')}</span>
                     </button>
                   </div>
                 )}
@@ -190,7 +190,7 @@ const Navigation = () => {
                       className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-primary-500 text-white w-full text-left"
                     >
                       <UserPlus className="w-5 h-5" />
-                      <span className="font-medium">Créer un compte</span>
+                      <span className="font-medium">{t('nav.createAccount')}</span>
                     </button>
                   </div>
                 )}
@@ -208,11 +208,11 @@ const Navigation = () => {
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 mobile-nav">
         <div className="flex items-center justify-around py-3 px-2">
           {[
-            { path: '/', label: 'Découvrir', icon: Search },
-            { path: '/map', label: 'Carte', icon: MapPin },
-            { path: '/forum', label: 'Forum', icon: MessageSquare },
-            { path: '/events', label: 'Événements', icon: Calendar },
-            { path: '/dashboard', label: 'Profil', icon: User }
+            { path: '/', label: t('nav.discovery'), icon: Search },
+            { path: '/map', label: t('map.title'), icon: MapPin },
+            { path: '/forum', label: t('nav.forum'), icon: MessageSquare },
+            { path: '/events', label: t('nav.events'), icon: Calendar },
+            { path: '/dashboard', label: t('nav.dashboard'), icon: User }
           ].map(({ path, label, icon: Icon }) => (
             <Link
               key={path}

@@ -7,12 +7,12 @@ const LanguageSelector: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const languages: { code: Language; name: string; flag: string }[] = [
-    { code: 'fr', name: t('language.french'), flag: '🇫🇷' },
-    { code: 'en', name: t('language.english'), flag: '🇬🇧' },
-    { code: 'es', name: t('language.spanish'), flag: '🇪🇸' },
-    { code: 'it', name: t('language.italian'), flag: '🇮🇹' },
-    { code: 'de', name: t('language.german'), flag: '🇩🇪' },
-    { code: 'pt', name: t('language.portuguese'), flag: '🇵🇹' }
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+    { code: 'pt', name: 'Português', flag: '🇵🇹' }
   ];
 
   const currentLanguage = languages.find(lang => lang.code === language);

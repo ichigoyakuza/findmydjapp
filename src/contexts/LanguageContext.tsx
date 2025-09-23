@@ -30,8 +30,15 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.artists': 'Artistes',
     'nav.events': 'Événements',
     'nav.dashboard': 'Tableau de bord',
+    'nav.forum': 'Forum',
+    'nav.messages': 'Messages',
+    'nav.musicStore': 'Boutique Musique',
+    'nav.musicHub': 'Music Hub',
+    'nav.subscription': 'Abonnement',
+    'nav.logout': 'Déconnexion',
+    'nav.createAccount': 'Créer un compte',
     
-    // Général
+    // General
     'common.search': 'Rechercher',
     'common.filter': 'Filtrer',
     'common.book': 'Réserver',
@@ -226,6 +233,13 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.artists': 'Artists',
     'nav.events': 'Events',
     'nav.dashboard': 'Dashboard',
+    'nav.forum': 'Forum',
+    'nav.messages': 'Messages',
+    'nav.musicStore': 'Music Store',
+    'nav.musicHub': 'Music Hub',
+    'nav.subscription': 'Subscription',
+    'nav.logout': 'Logout',
+    'nav.createAccount': 'Create Account',
     
     // General
     'common.search': 'Search',
@@ -417,11 +431,18 @@ const translations: Record<Language, Record<string, string>> = {
     'misc.mobileOptimized': 'This application is optimized for mobile only. Please use your phone for a better experience.'
   },
   es: {
-    // Navigation
+   // Navigation
     'nav.discovery': 'Descubrimiento',
     'nav.artists': 'Artistas',
     'nav.events': 'Eventos',
-    'nav.dashboard': 'Panel',
+    'nav.dashboard': 'Panel de control',
+     'nav.forum': 'Foro',
+     'nav.messages': 'Mensajes',
+     'nav.musicStore': 'Tienda de Música',
+     'nav.musicHub': 'Centro Musical',
+    'nav.subscription': 'Suscripción',
+    'nav.logout': 'Cerrar Sesión',
+    'nav.createAccount': 'Crear Cuenta',
     
     // General
     'common.search': 'Buscar',
@@ -618,6 +639,13 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.artists': 'Artisti',
     'nav.events': 'Eventi',
     'nav.dashboard': 'Dashboard',
+    'nav.forum': 'Forum',
+    'nav.messages': 'Messaggi',
+    'nav.musicStore': 'Negozio Musicale',
+    'nav.musicHub': 'Music Hub',
+    'nav.subscription': 'Abbonamento',
+    'nav.logout': 'Disconnetti',
+    'nav.createAccount': 'Crea Account',
     
     // General
     'common.search': 'Cerca',
@@ -683,6 +711,13 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.artists': 'Künstler',
     'nav.events': 'Veranstaltungen',
     'nav.dashboard': 'Dashboard',
+    'nav.forum': 'Forum',
+    'nav.messages': 'Nachrichten',
+    'nav.musicStore': 'Musikgeschäft',
+    'nav.musicHub': 'Music Hub',
+    'nav.subscription': 'Abonnement',
+    'nav.logout': 'Abmelden',
+    'nav.createAccount': 'Konto Erstellen',
     
     // General
     'common.search': 'Suchen',
@@ -748,6 +783,13 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.artists': 'Artistas',
     'nav.events': 'Eventos',
     'nav.dashboard': 'Painel',
+    'nav.forum': 'Fórum',
+    'nav.messages': 'Mensagens',
+    'nav.musicStore': 'Loja de Música',
+    'nav.musicHub': 'Music Hub',
+    'nav.subscription': 'Subscrição',
+     'nav.logout': 'Terminar Sessão',
+     'nav.createAccount': 'Criar Conta',
     
     // General
     'common.search': 'Pesquisar',
