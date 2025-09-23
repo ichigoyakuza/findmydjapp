@@ -45,7 +45,7 @@ jobs:
       
     - name: 🔄 Sync Capacitor
       run: |
-        npx cap sync android --no-build
+        npx cap sync android
         
     - name: 🔐 Generate debug keystore
       run: |
