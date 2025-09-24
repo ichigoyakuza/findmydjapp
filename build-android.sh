@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# 🚀 Script de Build Android pour FindMyDJ
+# Script de build Android pour FindMyDJ
 # Ce script reproduit les étapes du workflow GitHub Actions
+
+# Désactiver la télémétrie Capacitor
+export CAPACITOR_TELEMETRY=false
 
 set -e  # Arrêter en cas d'erreur
 
@@ -45,7 +48,8 @@ echo "✅ Build web terminé"
 
 # Synchronisation Capacitor
 echo "🔄 Synchronisation Capacitor..."
-npx cap sync android --no-telemetry
+npx cap telemetry off
+npx cap sync android
 
 # Vérifier que les fichiers Android existent
 if [ ! -f "android/gradlew" ]; then
