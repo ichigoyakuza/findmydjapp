@@ -281,20 +281,33 @@ const Dashboard = () => {
         {activeTab === 'music' && (
           <div className="space-y-6 sm:space-y-8">
             {/* Upload Section */}
-            <div className="card p-4 sm:p-6">
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-4 flex items-center gap-2">
-                <Upload className="w-5 h-5 text-purple-400" />
-                Uploader de la musique
-              </h3>
-              <div className="border-2 border-dashed border-gray-600 rounded-lg p-6 sm:p-8 text-center hover:border-purple-500/50 transition-colors">
-                <Upload className="w-8 h-8 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-400 mb-2 text-sm sm:text-base">Glissez vos fichiers ici ou cliquez pour sélectionner</p>
-                <p className="text-gray-500 text-xs sm:text-sm">MP3, WAV, FLAC jusqu'à 100MB</p>
-                <button className="btn-primary mt-4 px-4 py-2 text-sm sm:text-base">
-                  Sélectionner des fichiers
-                </button>
+            <RoleGuard allowedRoles={['dj', 'admin']}>
+              <div className="card p-4 sm:p-6">
+                <h3 className="text-lg sm:text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <Upload className="w-5 h-5 text-purple-400" />
+                  Uploader de la musique
+                </h3>
+                <div className="border-2 border-dashed border-gray-600 rounded-lg p-6 sm:p-8 text-center hover:border-purple-500/50 transition-colors">
+                  <Upload className="w-8 h-8 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-400 mb-2 text-sm sm:text-base">Glissez vos fichiers ici ou cliquez pour sélectionner</p>
+                  <p className="text-gray-500 text-xs sm:text-sm">MP3, WAV, FLAC jusqu'à 100MB</p>
+                  <button className="btn-primary mt-4 px-4 py-2 text-sm sm:text-base">
+                    Sélectionner des fichiers
+                  </button>
+                </div>
               </div>
-            </div>
+            </RoleGuard>
+            <RoleGuard allowedRoles={[]} fallback={null}>
+              <div className="card p-6 text-center">
+                <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-white mb-2">
+                  Accès DJ Requis
+                </h3>
+                <p className="text-gray-400">
+                  Cette section est réservée aux DJs pour uploader leur musique.
+                </p>
+              </div>
+            </RoleGuard>
 
             {/* Music Library */}
             <div className="card p-4 sm:p-6">

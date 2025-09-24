@@ -6,6 +6,7 @@ import {
   Upload, FolderPlus, Settings, ChevronDown, Check,
   X, Save, Image as ImageIcon, User, Calendar, Volume2
 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Track {
   id: string;
@@ -84,6 +85,7 @@ const PlaylistManager: React.FC<PlaylistManagerProps> = ({
   currentUserId,
   className = ''
 }) => {
+  const { t } = useLanguage();
   const [view, setView] = useState<'grid' | 'list'>('grid');
   const [filter, setFilter] = useState<'all' | 'personal' | 'shared' | 'public' | 'favorites'>('all');
   const [sortBy, setSortBy] = useState<'name' | 'created' | 'updated' | 'duration' | 'tracks'>('updated');
@@ -203,7 +205,7 @@ const PlaylistManager: React.FC<PlaylistManagerProps> = ({
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div className="bg-dark-800 rounded-xl p-6 w-full max-w-md mx-4">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-white">Créer une playlist</h2>
+            <h2 className="text-xl font-bold text-white">{t('playlist.createPlaylist')}</h2>
             <button
               onClick={() => setShowCreateModal(false)}
               className="text-gray-400 hover:text-white"
@@ -215,33 +217,33 @@ const PlaylistManager: React.FC<PlaylistManagerProps> = ({
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
-                Nom de la playlist *
+                {t('playlist.playlistName')}
               </label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                 className="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-white placeholder-gray-400"
-                placeholder="Ma nouvelle playlist"
+                placeholder={t('playlist.playlistNamePlaceholder')}
                 required
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
-                Description
+                {t('playlist.description')}
               </label>
               <textarea
                 value={formData.description}
                 onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                 className="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-white placeholder-gray-400 h-20 resize-none"
-                placeholder="Description de votre playlist..."
+                placeholder={t('playlist.descriptionPlaceholder')}
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
-                Tags
+                {t('playlist.tags')}
               </label>
               <div className="flex space-x-2 mb-2">
                 <input
@@ -250,7 +252,7 @@ const PlaylistManager: React.FC<PlaylistManagerProps> = ({
                   onChange={(e) => setNewTag(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
                   className="flex-1 bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-white placeholder-gray-400"
-                  placeholder="Ajouter un tag"
+                  placeholder={t('playlist.addTagPlaceholder')}
                 />
                 <button
                   type="button"
@@ -289,7 +291,7 @@ const PlaylistManager: React.FC<PlaylistManagerProps> = ({
                   onChange={(e) => setFormData(prev => ({ ...prev, isPublic: e.target.checked }))}
                   className="w-4 h-4 text-purple-500 bg-dark-700 border-dark-600 rounded focus:ring-purple-500"
                 />
-                <span className="text-sm text-gray-300">Playlist publique</span>
+                <span className="text-sm text-gray-300">{t('playlist.publicPlaylist')}</span>
               </label>
 
               <label className="flex items-center space-x-3">
@@ -299,7 +301,7 @@ const PlaylistManager: React.FC<PlaylistManagerProps> = ({
                   onChange={(e) => setFormData(prev => ({ ...prev, isCollaborative: e.target.checked }))}
                   className="w-4 h-4 text-purple-500 bg-dark-700 border-dark-600 rounded focus:ring-purple-500"
                 />
-                <span className="text-sm text-gray-300">Playlist collaborative</span>
+                <span className="text-sm text-gray-300">{t('playlist.collaborativePlaylist')}</span>
               </label>
             </div>
 
@@ -309,13 +311,13 @@ const PlaylistManager: React.FC<PlaylistManagerProps> = ({
                 onClick={() => setShowCreateModal(false)}
                 className="flex-1 px-4 py-2 border border-dark-600 text-gray-300 rounded-lg hover:bg-dark-700"
               >
-                Annuler
+                {t('common.cancel')}
               </button>
               <button
                 type="submit"
                 className="flex-1 px-4 py-2 bg-gradient-to-r from-purple-500 to-primary-500 text-white rounded-lg hover:opacity-90"
               >
-                Créer
+                {t('playlist.create')}
               </button>
             </div>
           </form>
@@ -443,13 +445,13 @@ const PlaylistManager: React.FC<PlaylistManagerProps> = ({
       {/* Header */}
       <div className="p-6 border-b border-dark-700">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-white">Mes Playlists</h1>
+          <h1 className="text-2xl font-bold text-white">{t('playlist.title')}</h1>
           <button
             onClick={() => setShowCreateModal(true)}
             className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-primary-500 text-white rounded-lg hover:opacity-90"
           >
             <Plus className="w-4 h-4" />
-            <span>Créer</span>
+            <span>{t('playlist.create')}</span>
           </button>
         </div>
 
@@ -462,7 +464,7 @@ const PlaylistManager: React.FC<PlaylistManagerProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Rechercher des playlists..."
+              placeholder={t('playlist.searchPlaylists')}
               className="w-full pl-10 pr-4 py-2 bg-dark-800 border border-dark-600 rounded-lg text-white placeholder-gray-400"
             />
           </div>
@@ -475,11 +477,11 @@ const PlaylistManager: React.FC<PlaylistManagerProps> = ({
               onChange={(e) => setFilter(e.target.value as typeof filter)}
               className="bg-dark-800 border border-dark-600 rounded-lg px-3 py-2 text-white text-sm"
             >
-              <option value="all">Toutes</option>
-              <option value="personal">Personnelles</option>
-              <option value="shared">Partagées</option>
-              <option value="public">Publiques</option>
-              <option value="favorites">Favoris</option>
+              <option value="all">{t('playlist.all')}</option>
+              <option value="personal">{t('playlist.personal')}</option>
+              <option value="shared">{t('playlist.shared')}</option>
+              <option value="public">{t('playlist.public')}</option>
+              <option value="favorites">{t('playlist.favorites')}</option>
             </select>
 
             {/* Sort */}
@@ -488,11 +490,11 @@ const PlaylistManager: React.FC<PlaylistManagerProps> = ({
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
               className="bg-dark-800 border border-dark-600 rounded-lg px-3 py-2 text-white text-sm"
             >
-              <option value="updated">Récemment modifiées</option>
-              <option value="created">Récemment créées</option>
-              <option value="name">Nom</option>
-              <option value="duration">Durée</option>
-              <option value="tracks">Nombre de pistes</option>
+              <option value="updated">{t('playlist.recentlyModified')}</option>
+              <option value="created">{t('playlist.recentlyCreated')}</option>
+              <option value="name">{t('playlist.name')}</option>
+              <option value="duration">{t('playlist.duration')}</option>
+              <option value="tracks">{t('playlist.trackCount')}</option>
             </select>
 
             {/* View Toggle */}
@@ -520,12 +522,12 @@ const PlaylistManager: React.FC<PlaylistManagerProps> = ({
           <div className="text-center py-12">
             <Music className="w-16 h-16 text-gray-500 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-white mb-2">
-              {searchQuery ? 'Aucune playlist trouvée' : 'Aucune playlist'}
+              {searchQuery ? t('playlist.noPlaylistsFound') : t('playlist.noPlaylists')}
             </h3>
             <p className="text-gray-400 mb-6">
               {searchQuery 
-                ? 'Essayez de modifier votre recherche'
-                : 'Créez votre première playlist pour commencer'
+                ? t('playlist.modifySearch')
+                : t('playlist.createFirst')
               }
             </p>
             {!searchQuery && (
@@ -533,7 +535,7 @@ const PlaylistManager: React.FC<PlaylistManagerProps> = ({
                 onClick={() => setShowCreateModal(true)}
                 className="px-6 py-3 bg-gradient-to-r from-purple-500 to-primary-500 text-white rounded-lg hover:opacity-90"
               >
-                Créer ma première playlist
+                {t('playlist.createFirstButton')}
               </button>
             )}
           </div>

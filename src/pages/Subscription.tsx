@@ -3,6 +3,8 @@ import { Check, Crown, Star, CreditCard, Shield, Zap, Loader2, X } from 'lucide-
 import { useAuth } from '../contexts/AuthContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
 import { SUBSCRIPTION_PLANS } from '../config/stripe';
+import { showError } from '../utils/notifications';
+import { t } from '../utils/translations';
 
 const Subscription = () => {
   const { user } = useAuth();
@@ -23,7 +25,7 @@ const Subscription = () => {
       await createCheckoutSession(planId);
     } catch (error) {
       console.error('Erreur lors de l\'abonnement:', error);
-      alert('Erreur lors du processus de paiement. Veuillez réessayer.');
+      showError(t('notifications.paymentError'));
     }
   };
 
@@ -34,7 +36,7 @@ const Subscription = () => {
       await cancelSubscription();
     } catch (error) {
       console.error('Erreur lors de l\'annulation:', error);
-      alert('Erreur lors de l\'annulation. Veuillez réessayer.');
+      showError(t('notifications.cancellationError'));
     }
   };
 
@@ -45,7 +47,7 @@ const Subscription = () => {
       await updateSubscription(planId);
     } catch (error) {
       console.error('Erreur lors du changement de plan:', error);
-      alert('Erreur lors du changement de plan. Veuillez réessayer.');
+      showError(t('notifications.planChangeError'));
     }
   };
 

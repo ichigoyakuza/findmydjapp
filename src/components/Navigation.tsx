@@ -69,6 +69,111 @@ const Navigation = () => {
 
   return (
     <>
+      {/* Navigation Desktop */}
+      <nav className={`hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-dark-950/95 backdrop-blur-xl border-b border-dark-700 shadow-2xl' 
+          : 'bg-dark-950/80 backdrop-blur-md border-b border-dark-800'
+      }`}>
+        <div className="max-w-7xl mx-auto px-4 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <Link to="/" className="flex items-center space-x-3 group">
+              <div className="relative">
+                <img 
+                  src="/logo.svg" 
+                  alt="DJHUB Logo" 
+                  className="w-10 h-10 lg:w-12 lg:h-12 transition-transform duration-300 group-hover:scale-110" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-primary-500 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+              </div>
+              <span className="text-xl lg:text-2xl font-bold text-gradient">
+                DJHUB
+              </span>
+            </Link>
+
+            {/* Navigation Links */}
+            <div className="hidden lg:flex items-center space-x-1">
+              {navItems.slice(0, 6).map(({ path, label, icon: Icon }) => (
+                <Link
+                  key={path}
+                  to={path}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all duration-300 ${
+                    isActive(path)
+                      ? 'bg-gradient-to-r from-purple-500/20 to-primary-500/20 text-white'
+                      : 'text-gray-300 hover:text-white hover:bg-dark-800/50'
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span className="font-medium text-sm">{label}</span>
+                </Link>
+              ))}
+            </div>
+
+            {/* User Actions */}
+            <div className="flex items-center space-x-3">
+              {isAuthenticated && (
+                <button
+                  onClick={() => setNotificationCenterOpen(true)}
+                  className="relative p-2 rounded-xl text-gray-400 hover:text-white hover:bg-dark-800/50 transition-all duration-300"
+                >
+                  <Bell className="w-5 h-5" />
+                  {unreadCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                      {unreadCount > 9 ? '9+' : unreadCount}
+                    </span>
+                  )}
+                </button>
+              )}
+              
+              {isAuthenticated ? (
+                <div className="flex items-center space-x-2">
+                  <Link
+                    to="/dashboard"
+                    className="flex items-center space-x-2 px-3 py-2 rounded-xl bg-gradient-to-r from-purple-500/20 to-primary-500/20 text-white hover:from-purple-500/30 hover:to-primary-500/30 transition-all duration-300"
+                  >
+                    <User className="w-4 h-4" />
+                    <span className="font-medium text-sm">{user?.name || 'Profil'}</span>
+                  </Link>
+                  <button
+                    onClick={logout}
+                    className="flex items-center space-x-2 px-3 py-2 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-300"
+                  >
+                    <LogIn className="w-4 h-4 rotate-180" />
+                    <span className="font-medium text-sm">{t('nav.logout')}</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => {
+                      setAuthMode('login');
+                      setAuthModalOpen(true);
+                    }}
+                    className="flex items-center space-x-2 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-dark-800/50 transition-all duration-300"
+                  >
+                    <LogIn className="w-4 h-4" />
+                    <span className="font-medium text-sm">Connexion</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setAuthMode('register');
+                      setAuthModalOpen(true);
+                    }}
+                    className="flex items-center space-x-2 px-3 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-primary-500 text-white hover:from-purple-600 hover:to-primary-600 transition-all duration-300"
+                  >
+                    <UserPlus className="w-4 h-4" />
+                    <span className="font-medium text-sm">S'inscrire</span>
+                  </button>
+                </div>
+              )}
+              
+              <LanguageSelector />
+            </div>
+          </div>
+        </div>
+      </nav>
+
       {/* Navigation Mobile uniquement */}
       <nav className={`md:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled 

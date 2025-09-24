@@ -15,22 +15,24 @@ import {
   TrendingUp
 } from 'lucide-react';
 import { mockForumPosts, mockForumReplies, MockForumPost } from '../data/mockData';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Forum: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [posts, setPosts] = useState<MockForumPost[]>(mockForumPosts);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'recent' | 'popular' | 'replies'>('recent');
 
   const categories = [
-    { id: 'all', name: 'Tous', icon: MessageSquare },
-    { id: 'question', name: 'Questions', icon: MessageCircle },
-    { id: 'tip', name: 'Astuces', icon: TrendingUp },
-    { id: 'discussion', name: 'Discussions', icon: MessageSquare },
-    { id: 'equipment', name: 'Équipement', icon: Filter },
-    { id: 'gig', name: 'Gigs', icon: Clock },
-    { id: 'music', name: 'Musique', icon: Tag }
+    { id: 'all', name: t('forum.all'), icon: MessageSquare },
+    { id: 'question', name: t('forum.questions'), icon: MessageCircle },
+    { id: 'tip', name: t('forum.tips'), icon: TrendingUp },
+    { id: 'discussion', name: t('forum.discussions'), icon: MessageSquare },
+    { id: 'equipment', name: t('forum.equipment'), icon: Filter },
+    { id: 'gig', name: t('forum.gigs'), icon: Clock },
+    { id: 'music', name: t('forum.music'), icon: Tag }
   ];
 
   const filteredPosts = posts
@@ -58,11 +60,11 @@ const Forum: React.FC = () => {
     const now = new Date();
     const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
     
-    if (diffInHours < 1) return 'Il y a moins d\'une heure';
-    if (diffInHours < 24) return `Il y a ${diffInHours}h`;
+    if (diffInHours < 1) return t('forum.timeAgo.lessThanHour');
+    if (diffInHours < 24) return t('forum.timeAgo.hours').replace('{hours}', diffInHours.toString());
     const diffInDays = Math.floor(diffInHours / 24);
-    if (diffInDays < 7) return `Il y a ${diffInDays}j`;
-    return date.toLocaleDateString('fr-FR');
+    if (diffInDays < 7) return t('forum.timeAgo.days').replace('{days}', diffInDays.toString());
+    return date.toLocaleDateString();
   };
 
   const getCategoryColor = (category: string) => {
@@ -84,15 +86,15 @@ const Forum: React.FC = () => {
         <div className="mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Forum Communautaire</h1>
-              <p className="text-gray-600">Partagez vos questions, astuces et expériences avec la communauté DJ</p>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('forum.title')}</h1>
+              <p className="text-gray-600">{t('forum.subtitle')}</p>
             </div>
             <button 
               onClick={() => navigate('/forum/create')}
               className="mt-4 sm:mt-0 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors flex items-center"
             >
               <Plus className="w-5 h-5 mr-2" />
-              Nouveau post
+              {t('forum.createPost')}
             </button>
           </div>
 
@@ -102,7 +104,7 @@ const Forum: React.FC = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
-                placeholder="Rechercher dans le forum..."
+                placeholder={t('forum.searchForum')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
@@ -113,9 +115,9 @@ const Forum: React.FC = () => {
               onChange={(e) => setSortBy(e.target.value as 'recent' | 'popular' | 'replies')}
               className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             >
-              <option value="recent">Plus récents</option>
-              <option value="popular">Plus populaires</option>
-              <option value="replies">Plus de réponses</option>
+              <option value="recent">{t('forum.newest')}</option>
+              <option value="popular">{t('forum.popular')}</option>
+              <option value="replies">{t('forum.mostReplies')}</option>
             </select>
           </div>
 
@@ -221,8 +223,8 @@ const Forum: React.FC = () => {
         {filteredPosts.length === 0 && (
           <div className="text-center py-12">
             <MessageSquare className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Aucun post trouvé</h3>
-            <p className="text-gray-600">Essayez de modifier vos critères de recherche ou créez le premier post !</p>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">{t('forum.noPostsFound')}</h3>
+            <p className="text-gray-600">{t('forum.startDiscussion')}</p>
           </div>
         )}
       </div>

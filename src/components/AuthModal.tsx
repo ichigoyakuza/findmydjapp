@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { X, User, Mail, Lock, UserPlus, LogIn } from 'lucide-react';
+import { X, User, Mail, Lock, UserPlus, LogIn, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import ForgotPasswordModal from './ForgotPasswordModal';
+import ResetPasswordModal from './ResetPasswordModal';
+import PasswordResetNotification from './PasswordResetNotification';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -21,6 +24,21 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultMode = 'l
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  
+  // États pour la réinitialisation de mot de passe
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false);
+  const [resetToken, setResetToken] = useState<string | undefined>();
+  const [notification, setNotification] = useState<{
+    isVisible: boolean;
+    type: 'success' | 'error';
+    message: string;
+  }>({
+    isVisible: false,
+    type: 'success',
+    message: ''
+  });
 
   if (!isOpen) return null;
 
@@ -60,6 +78,37 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultMode = 'l
       ...prev,
       [e.target.name]: e.target.value
     }));
+  };
+
+  // Fonctions pour la réinitialisation de mot de passe
+  const handleForgotPassword = () => {
+    setShowForgotPassword(true);
+  };
+
+  const handleBackToLogin = () => {
+    setShowForgotPassword(false);
+    setShowResetPassword(false);
+  };
+
+  const handleResetSuccess = () => {
+    setShowResetPassword(false);
+    setNotification({
+      isVisible: true,
+      type: 'success',
+      message: 'Votre mot de passe a été réinitialisé avec succès !'
+    });
+  };
+
+  const showNotification = (type: 'success' | 'error', message: string) => {
+    setNotification({
+      isVisible: true,
+      type,
+      message
+    });
+  };
+
+  const hideNotification = () => {
+    setNotification(prev => ({ ...prev, isVisible: false }));
   };
 
   return (
@@ -109,7 +158,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultMode = 'l
                   onChange={handleInputChange}
                   required
                   className="input-field"
-                  placeholder="Votre nom"
+                  placeholder={t('forms.yourName')}
                 />
               </div>
 
@@ -123,7 +172,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultMode = 'l
                   onChange={handleInputChange}
                   className="input-field"
                 >
-                  <option value="fan">Fan / Mélomane</option>
+                  <option value="fan">{t('forms.fanMelomane')}</option>
                   <option value="dj">DJ</option>
                   <option value="organizer">Organisateur</option>
                 </select>
@@ -152,19 +201,37 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultMode = 'l
               <Lock className="w-4 h-4 inline mr-2" />
               Mot de passe
             </label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-              className="input-field"
-              placeholder="••••••••"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                required
+                className="input-field pr-12"
+                placeholder="••••••••"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition-colors"
+              >
+                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </button>
+            </div>
             {mode === 'login' && (
-              <p className="text-xs text-gray-500 mt-1">
-                Utilisez "password123" pour tester
-              </p>
+              <div className="flex items-center justify-between mt-1">
+                <p className="text-xs text-gray-500">
+                  Utilisez "password123" pour tester
+                </p>
+                <button
+                  type="button"
+                  onClick={handleForgotPassword}
+                  className="text-xs text-purple-400 hover:text-purple-300 transition-colors"
+                >
+                  Mot de passe oublié ?
+                </button>
+              </div>
             )}
           </div>
 
@@ -235,6 +302,34 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultMode = 'l
           </div>
         )}
       </div>
+
+      {/* Modal Mot de passe oublié */}
+      <ForgotPasswordModal
+        isOpen={showForgotPassword}
+        onClose={onClose}
+        onBackToLogin={handleBackToLogin}
+        onSuccess={(token) => {
+          setResetToken(token);
+          setShowForgotPassword(false);
+          setShowResetPassword(true);
+        }}
+      />
+
+      {/* Modal Réinitialisation */}
+      <ResetPasswordModal
+        isOpen={showResetPassword}
+        onClose={handleBackToLogin}
+        token={resetToken}
+        onSuccess={handleResetSuccess}
+      />
+
+      {/* Notifications */}
+      <PasswordResetNotification
+        isVisible={notification.isVisible}
+        type={notification.type}
+        message={notification.message}
+        onClose={hideNotification}
+      />
     </div>
   );
 };

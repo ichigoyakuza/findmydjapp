@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
+import { showSuccess } from '../utils/notifications';
+import { t } from '../utils/translations';
 
 export interface Track {
   id: string;
@@ -356,7 +358,7 @@ export const usePlaylist = (userId?: string): UsePlaylistReturn => {
       } else {
         // Fallback: copier dans le presse-papiers
         await navigator.clipboard.writeText(shareUrl);
-        alert('Lien copié dans le presse-papiers !');
+        showSuccess(t('notifications.linkCopied'));
       }
     } catch (err) {
       setError('Erreur lors du partage');

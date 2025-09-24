@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Search, Phone, Video, MoreVertical, Paperclip, Smile } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import { useAuthorization } from '../contexts/AuthorizationContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Message {
   id: string;
@@ -24,6 +27,9 @@ interface Conversation {
 }
 
 const Messages: React.FC = () => {
+  const { user } = useAuth();
+  const { hasPermission } = useAuthorization();
+  const { t } = useLanguage();
   const [selectedConversation, setSelectedConversation] = useState<string | null>(null);
   const [newMessage, setNewMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -125,6 +131,13 @@ const Messages: React.FC = () => {
   const handleSendMessage = () => {
     if (!newMessage.trim() || !selectedConversation) return;
     
+    // Vérifier les permissions pour répondre aux messages
+    const selectedConv = conversations.find(conv => conv.id === selectedConversation);
+    if (selectedConv && !hasPermission('booking', 'respond', user?.ownedProfileId)) {
+      console.error('Permission refusée pour répondre aux messages');
+      return;
+    }
+    
     // Ici, vous ajouteriez la logique pour envoyer le message
     console.log('Envoi du message:', newMessage);
     setNewMessage('');
@@ -152,12 +165,12 @@ const Messages: React.FC = () => {
             <div className="w-1/3 border-r border-gray-200 flex flex-col">
               {/* Header */}
               <div className="p-4 border-b border-gray-200">
-                <h1 className="text-xl font-bold text-gray-900 mb-4">Messages</h1>
+                <h1 className="text-xl font-bold text-gray-900 mb-4">{t('messages.title')}</h1>
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                   <input
                     type="text"
-                    placeholder="Rechercher une conversation..."
+                    placeholder={t('messages.searchConversations')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
@@ -210,7 +223,7 @@ const Messages: React.FC = () => {
                             ? 'bg-blue-100 text-blue-800' 
                             : 'bg-green-100 text-green-800'
                         }`}>
-                          {conversation.participantRole === 'dj' ? 'DJ' : 'Client'}
+                          {conversation.participantRole === 'dj' ? 'DJ' : t('messages.client')}
                         </span>
                       </div>
                     </div>
@@ -242,7 +255,7 @@ const Messages: React.FC = () => {
                             {selectedConv.participantName}
                           </h2>
                           <p className="text-sm text-gray-500">
-                            {selectedConv.isOnline ? 'En ligne' : 'Hors ligne'}
+                            {selectedConv.isOnline ? t('messages.online') : t('messages.offline')}
                           </p>
                         </div>
                       </div>
@@ -301,7 +314,7 @@ const Messages: React.FC = () => {
                           value={newMessage}
                           onChange={(e) => setNewMessage(e.target.value)}
                           onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                          placeholder="Tapez votre message..."
+                          placeholder={t('messages.typeMessage')}
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent pr-12"
                         />
                         <button className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600">
@@ -310,8 +323,9 @@ const Messages: React.FC = () => {
                       </div>
                       <button
                         onClick={handleSendMessage}
-                        disabled={!newMessage.trim()}
+                        disabled={!newMessage.trim() || !hasPermission('booking', 'respond', user?.ownedProfileId)}
                         className="p-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        title={!hasPermission('booking', 'respond', user?.ownedProfileId) ? t('messages.noPermission') : ''}
                       >
                         <Send className="w-5 h-5" />
                       </button>
@@ -325,10 +339,10 @@ const Messages: React.FC = () => {
                       <Send className="w-8 h-8 text-gray-400" />
                     </div>
                     <h3 className="text-lg font-medium text-gray-900 mb-2">
-                      Sélectionnez une conversation
+                      {t('messages.selectConversation')}
                     </h3>
                     <p className="text-gray-500">
-                      Choisissez une conversation dans la liste pour commencer à discuter
+                      {t('messages.chooseConversation')}
                     </p>
                   </div>
                 </div>

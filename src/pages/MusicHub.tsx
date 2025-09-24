@@ -10,6 +10,8 @@ import AudioPlayer from '../components/AudioPlayer';
 import PlaylistManager from '../components/PlaylistManager';
 import MusicRecommendations from '../components/MusicRecommendations';
 import { usePlaylist, Track, Playlist } from '../hooks/usePlaylist';
+import { showSuccess } from '../utils/notifications';
+import { t } from '../utils/translations';
 
 const MusicHub: React.FC = () => {
   const { user } = useAuth();
@@ -174,7 +176,7 @@ const MusicHub: React.FC = () => {
     } else {
       // Fallback: copier dans le presse-papiers
       navigator.clipboard.writeText(`${track.title} - ${track.artist}`);
-      alert('Informations copiées dans le presse-papiers !');
+      showSuccess(t('notifications.infoCopied'));
     }
   };
 

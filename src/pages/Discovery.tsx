@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Search, MapPin, Music, Star, Users, Filter, Sparkles, TrendingUp, UserPlus } from 'lucide-react';
 import DJCard from '../components/DJCard';
 import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import AuthModal from '../components/AuthModal';
 import AdvancedSearchFilters from '../components/AdvancedSearchFilters';
 
@@ -24,6 +25,7 @@ const Discovery = () => {
   });
   
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   const mockDJs = [
     {
@@ -178,14 +180,14 @@ const Discovery = () => {
               className="btn-primary flex items-center space-x-2 w-full sm:w-auto"
             >
               <MapPin className="w-5 h-5" />
-              <span>Explorer la carte</span>
+              <span>{t('discovery.exploreMap')}</span>
             </Link>
             <Link 
               to="/events" 
               className="btn-secondary flex items-center space-x-2 w-full sm:w-auto"
             >
               <TrendingUp className="w-5 h-5" />
-              <span>Événements populaires</span>
+              <span>{t('misc.popularEvents')}</span>
             </Link>
           </div>
           
@@ -198,10 +200,10 @@ const Discovery = () => {
                     <UserPlus className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-2">
-                    Rejoignez FindMyDJ
+                    {t('discovery.joinFindMyDJ')}
                   </h3>
                   <p className="text-gray-300 mb-6 text-sm">
-                    Créez votre compte pour réserver des DJs, gérer vos événements et découvrir de nouveaux talents
+                    {t('misc.createAccount')}
                   </p>
                   <button
                     onClick={() => {
@@ -211,7 +213,7 @@ const Discovery = () => {
                     className="btn-primary w-full flex items-center justify-center space-x-2 mb-3"
                   >
                     <UserPlus className="w-5 h-5" />
-                    <span>S'inscrire gratuitement</span>
+                    <span>{t('discovery.signUpFree')}</span>
                   </button>
                   <button
                     onClick={() => {
@@ -220,7 +222,7 @@ const Discovery = () => {
                     }}
                     className="text-purple-400 hover:text-purple-300 transition-colors text-sm"
                   >
-                    Déjà membre ? Se connecter
+                    {t('discovery.alreadyAccount')} {t('discovery.signIn')}
                   </button>
                 </div>
               </div>

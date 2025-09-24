@@ -3,6 +3,8 @@ import { Play, Pause, ShoppingCart, Heart, Download, Star, Filter, Search } from
 import { useMarketplace } from '../contexts/MarketplaceContext';
 import { useAuth } from '../contexts/AuthContext';
 import { MusicTrack } from '../config/stripe';
+import { showError, showInfo } from '../utils/notifications';
+import { t } from '../utils/translations';
 
 export const MusicStore: React.FC = () => {
   const { tracks, createMusicSale, isLoading } = useMarketplace();
@@ -62,12 +64,12 @@ export const MusicStore: React.FC = () => {
   // Acheter une track
   const handlePurchase = async (track: MusicTrack) => {
     if (!user) {
-      alert('Veuillez vous connecter pour acheter de la musique');
+      showError(t('notifications.loginRequired'));
       return;
     }
 
     if (purchasedTracks.includes(track.id)) {
-      alert('Vous possédez déjà cette track');
+      showInfo(t('notifications.trackAlreadyOwned'));
       return;
     }
 
@@ -76,7 +78,7 @@ export const MusicStore: React.FC = () => {
       setPurchasedTracks(prev => [...prev, track.id]);
     } catch (error) {
       console.error('Erreur lors de l\'achat:', error);
-      alert('Erreur lors de l\'achat. Veuillez réessayer.');
+      showError(t('notifications.purchaseError'));
     }
   };
 
@@ -152,7 +154,7 @@ export const MusicStore: React.FC = () => {
                 className="flex-1 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors flex items-center justify-center"
                 onClick={() => {
                   // Simuler le téléchargement
-                  alert('Téléchargement en cours...');
+                  showInfo(t('notifications.downloadStarted'));
                 }}
               >
                 <Download className="h-4 w-4 mr-2" />

@@ -66,7 +66,52 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
-    // Simulation d'authentification
+    // Vérifier d'abord les comptes de test
+    if (email === testAccounts.user.email && password === testAccounts.user.password) {
+      const testUser: User = {
+        id: 'test-user',
+        username: testAccounts.user.username,
+        email: testAccounts.user.email,
+        name: testAccounts.user.name,
+        avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&crop=face',
+        bio: 'Compte de test utilisateur',
+        isDJ: false,
+        role: 'visitor',
+        followers: 0,
+        following: 0,
+        joinedDate: new Date().toISOString().split('T')[0],
+        subscription: undefined,
+        ownedProfileId: undefined
+      };
+      setUser(testUser);
+      setIsAuthenticated(true);
+      localStorage.setItem('djhub_user', JSON.stringify(testUser));
+      return true;
+    }
+
+    if (email === testAccounts.dj.email && password === testAccounts.dj.password) {
+      const testDJ: User = {
+        id: 'test-dj',
+        username: testAccounts.dj.username,
+        email: testAccounts.dj.email,
+        name: testAccounts.dj.name,
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+        bio: 'Compte de test DJ',
+        isDJ: true,
+        role: 'dj',
+        followers: 0,
+        following: 0,
+        joinedDate: new Date().toISOString().split('T')[0],
+        subscription: 'free',
+        ownedProfileId: 'test-dj-profile'
+      };
+      setUser(testDJ);
+      setIsAuthenticated(true);
+      localStorage.setItem('djhub_user', JSON.stringify(testDJ));
+      return true;
+    }
+
+    // Simulation d'authentification pour les autres utilisateurs
     const foundUser = mockUsers.find(u => u.email === email);
     if (foundUser && password === 'password123') {
       setUser(foundUser);

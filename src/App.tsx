@@ -6,6 +6,7 @@ import { AuthorizationProvider } from './contexts/AuthorizationContext';
 import { SubscriptionProvider } from './contexts/SubscriptionContext';
 import { MarketplaceProvider } from './contexts/MarketplaceContext';
 import { SocialProvider } from './contexts/SocialContext';
+import { NotificationProvider } from './components/NotificationSystem';
 import Navigation from './components/Navigation';
 import ProtectedRoute from './components/ProtectedRoute';
 import DJProfile from './pages/DJProfile';
@@ -15,7 +16,7 @@ import Events from './pages/Events';
 import Dashboard from './pages/Dashboard';
 import Artists from './pages/Artists';
 import DJMapPage from './pages/DJMapPage';
-import CommunityPage from './pages/CommunityPage';
+
 import { MusicStore } from './pages/MusicStore';
 import MusicHub from './pages/MusicHub';
 import Subscription from './pages/Subscription';
@@ -33,7 +34,8 @@ function App() {
           <SubscriptionProvider>
             <MarketplaceProvider>
               <SocialProvider>
-              <Router>
+              <NotificationProvider>
+                <Router>
               <div className="min-h-screen bg-dark-950 mobile-content">
                 <Navigation />
                 <main className="pb-20 md:pb-0">
@@ -78,6 +80,7 @@ function App() {
                 </main>
               </div>
               </Router>
+              </NotificationProvider>
               </SocialProvider>
             </MarketplaceProvider>
           </SubscriptionProvider>

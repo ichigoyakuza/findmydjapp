@@ -3,6 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { Calendar, Clock, DollarSign, User, Mail, Phone, MessageSquare, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import RoleGuard from '../components/RoleGuard';
+import { showSuccess } from '../utils/notifications';
+import { t } from '../utils/translations';
 
 const BookingForm = () => {
   const { id } = useParams();
@@ -25,7 +27,7 @@ const BookingForm = () => {
     e.preventDefault();
     // Handle booking submission
     console.log('Booking submitted:', formData);
-    alert('Booking request sent! The DJ will contact you soon.');
+    showSuccess(t('notifications.bookingRequestSent'));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {

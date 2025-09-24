@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useAuth } from './AuthContext';
 import { SUBSCRIPTION_PLANS, StripeCustomer } from '../config/stripe';
+import { showSuccess, showError } from '../utils/notifications';
+import { t } from '../utils/translations';
 
 interface SubscriptionContextType {
   isSubscribed: boolean;
@@ -135,7 +137,7 @@ export const SubscriptionProvider: React.FC<SubscriptionProviderProps> = ({ chil
         setSubscriptionStatus('active');
         setCustomer(subscriptionData.customer);
         
-        alert(`Abonnement ${plan.name} activé avec succès ! (Simulation)`);
+        showSuccess(t('notifications.subscriptionActivated').replace('{planName}', plan.name));
       }, 2000);
       
     } catch (error) {
@@ -169,7 +171,7 @@ export const SubscriptionProvider: React.FC<SubscriptionProviderProps> = ({ chil
       // Simulation
       localStorage.removeItem(`subscription_${user?.id}`);
       resetSubscriptionData();
-      alert('Abonnement annulé avec succès ! (Simulation)');
+      showSuccess(t('notifications.subscriptionCancelled'));
       
     } catch (error) {
       console.error('Erreur lors de l\'annulation de l\'abonnement:', error);
