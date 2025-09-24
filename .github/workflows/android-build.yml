@@ -46,7 +46,7 @@ jobs:
     - name: 🔧 Configure Capacitor
       run: |
         npx cap telemetry off
-        npx cap sync android --no-open
+        npx cap sync android
 
     - name: 🔧 Make Gradle wrapper executable
       run: chmod +x android/gradlew
