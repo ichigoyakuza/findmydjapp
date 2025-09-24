@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 const urls = {
   local: 'http://localhost:4173',
   github: 'https://ichigoyakuza.github.io/findmydj-app',
-  netlify: 'https://findmydj.netlify.app' // À mettre à jour avec l'URL réelle
+  netlify: 'https://glittery-melomakarona-085cdf.netlify.app'
 };
 
 async function generateQRCodes() {
